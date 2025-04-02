@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566695204268",
+    "project_id": "metaahorro-e7920",
+    "storage_bucket": "metaahorro-e7920.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566695204268:android:26dd7007700a2bb1945609",
+        "android_client_info": {
+          "package_name": "com.example.metaahorro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1EfcwDUpHmzAx2ZVx1C51jfyEoMYiihE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
