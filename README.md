@@ -2,6 +2,8 @@
 
 Una aplicación para gestionar eficientemente tus finanzas personales y alcanzar tus metas de ahorro.
 
+<img alt="MetaAhorro App" src="assets/screenshots/open.png">
+
 ---
 
 ## 📑 Tabla de Contenidos
