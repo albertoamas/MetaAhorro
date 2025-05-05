@@ -31,6 +31,18 @@ class _MainNavigationState extends State<MainNavigation> {
             _currentIndex = index; // Cambiar la pantalla actual
           });
         },
+        selectedItemColor: const Color(0xFF3C2FCF), // Color morado para el ítem seleccionado
+        unselectedItemColor: Colors.grey, // Color gris para ítems no seleccionados
+        backgroundColor: Colors.white, // Fondo blanco
+        elevation: 8, // Elevación para dar sombra
+        type: BottomNavigationBarType.fixed, // Tipo fijo para mantener etiquetas visibles
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 12,
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

@@ -5,9 +5,10 @@ class Transaction {
   final String currency;
   final String category;
   final DateTime date;
-  final String profile; // Campo obligatorio
-  final String? goalId; // Nuevo campo opcional para asociar con una meta
+  final String profile;
+  final String? userId; // Nuevo campo para almacenar el ID del usuario
   final String? description;
+  final String? goalId;
 
   Transaction({
     required this.id,
@@ -17,8 +18,9 @@ class Transaction {
     required this.category,
     required this.date,
     required this.profile,
-    this.goalId, // Inicializar el nuevo campo
+    this.userId,
     this.description,
+    this.goalId,
   });
 
   // Convertir a JSON
@@ -30,7 +32,8 @@ class Transaction {
       'category': category,
       'date': date.toIso8601String(),
       'profile': profile,
-      'goalId': goalId, // Incluir el nuevo campo
+      'userId': userId,
+      'goalId': goalId,
       'description': description,
     };
   }
@@ -45,7 +48,8 @@ class Transaction {
       category: json['category'],
       date: DateTime.parse(json['date']),
       profile: json['profile'] ?? 'USD',
-      goalId: json['goalId'], // Leer el nuevo campo
+      userId: json['userId'],
+      goalId: json['goalId'],
       description: json['description'],
     );
   }
