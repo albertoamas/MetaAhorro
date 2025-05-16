@@ -2,8 +2,6 @@
 
 Una aplicación para gestionar eficientemente tus finanzas personales y alcanzar tus metas de ahorro.
 
-<img alt="MetaAhorro App" src="assets/screenshots/open.png">
-
 ---
 
 ## 📑 Tabla de Contenidos
@@ -114,20 +112,27 @@ git clone https://github.com/albertoamas/MetaAhorro.git
 cd metaahorro
 ```
 
-2. Instala dependencias:
+2. Asegúrate de tener la versión correcta de Flutter:
 
 ```bash
+flutter --version
+flutter upgrade
+```
+
+3. Limpia e instala dependencias:
+
+```bash
+flutter clean
 flutter pub get
 ```
 
-3. Configura Firebase:
+4. Requisitos para la ejecución:
+   - **Actualmente solo compatible con dispositivos Android** (API 21+ / Android 5.0 Lollipop o superior)
+   - Se recomienda usar un emulador de Android Studio, preferiblemente **Pixel 6**
+   - Asegurate que el dispositivo seleccionado sea el  correcto, es decir un dispositivo Android
+   <img alt="MetaAhorro App" src="assets/screenshots/Instrucciones.png">
 
-- Crea un proyecto en [Firebase Console](https://console.firebase.google.com)
-- Habilita **Authentication** y **Firestore**
-- Descarga `google-services.json` y `GoogleService-Info.plist`
-- Agrégalos a los respectivos directorios (`android/app` y `ios/Runner`)
-
-4. Ejecuta la aplicación:
+5. Ejecuta la aplicación:
 
 ```bash
 flutter run
