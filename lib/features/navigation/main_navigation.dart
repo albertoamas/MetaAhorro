@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../finance/screens/finance_home.dart';
 import '../goals/screens/goals_home.dart';
-import '../home/home_screen.dart'; // Import HomeScreen
+import '../home/home_screen.dart';
+import '../rewards/screens/rewards_home.dart'; // Importar pantalla de recompensas
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -13,11 +14,12 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
 
-  // Lista de pantallas
+  // Lista de pantallas actualizada
   final List<Widget> _screens = [
-    const HomeScreen(),      // Nueva pantalla de inicio
+    const HomeScreen(),      // Pantalla de inicio
     const FinanceHome(),     // Resumen Financiero
     const GoalsHome(),       // Metas de Ahorro
+    const RewardsHome(),     // Pantalla de Recompensas y Logros
   ];
 
   @override
@@ -55,6 +57,10 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.savings),
             label: 'Metas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.emoji_events),
+            label: 'Logros',
           ),
         ],
       ),

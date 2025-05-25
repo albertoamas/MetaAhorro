@@ -270,9 +270,7 @@ class _AddGoalState extends State<AddGoal> {
       });
 
       try {
-        _formKey.currentState!.save();
-
-        final goal = Goal(
+        _formKey.currentState!.save();        final goal = Goal(
           id: widget.goal?.id ?? '',
           name: _name,
           targetAmount: _targetAmount,
@@ -280,6 +278,7 @@ class _AddGoalState extends State<AddGoal> {
           currency: _currency,
           deadline: _deadline,
           description: _description,
+          userId: widget.goal?.userId ?? '', // El servicio asignará el userId correcto al crear
           progressHistory: widget.goal?.progressHistory ?? [],
         );
 
