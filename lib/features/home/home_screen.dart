@@ -90,6 +90,341 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _showProfile() {
+    final user = FirebaseAuth.instance.currentUser;
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: const LinearGradient(
+              colors: [Color(0xFF3C2FCF), Color(0xFF4A3AFF)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                _userName,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                user?.email ?? 'Sin email',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildProfileInfo('Moneda', _selectedProfile),
+                  _buildProfileInfo('Balance', '${_balance.toStringAsFixed(2)}'),
+                ],
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: const Color(0xFF3C2FCF),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Cerrar', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileInfo(String label, String value) {
+    return Column(
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.7),
+            fontSize: 12,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showSettings() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.settings, color: Color(0xFF3C2FCF), size: 24),
+                  const SizedBox(width: 12),
+                  const Text(
+                    'Configuraciones',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF3C2FCF),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildSettingOption(
+                icon: Icons.notifications_outlined,
+                title: 'Notificaciones',
+                subtitle: 'Gestionar alertas y recordatorios',
+                onTap: () {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Función disponible próximamente')),
+                  );
+                },
+              ),
+              _buildSettingOption(
+                icon: Icons.security_outlined,
+                title: 'Seguridad',
+                subtitle: 'Configurar autenticación',
+                onTap: () {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Función disponible próximamente')),
+                  );
+                },
+              ),
+              _buildSettingOption(
+                icon: Icons.help_outline,
+                title: 'Ayuda',
+                subtitle: 'Soporte y preguntas frecuentes',
+                onTap: () {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Función disponible próximamente')),
+                  );
+                },
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF3C2FCF),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Cerrar', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSettingOption({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Icon(icon, color: const Color(0xFF3C2FCF), size: 24),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios, color: Colors.grey[400], size: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE91E63).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                child: const Icon(
+                  Icons.logout,
+                  color: Color(0xFFE91E63),
+                  size: 32,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Cerrar Sesión',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                '¿Estás seguro de que quieres cerrar sesión?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.grey[600],
+                        side: BorderSide(color: Colors.grey[300]!),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text('Cancelar'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _logout();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE91E63),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text('Cerrar Sesión', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      if (mounted) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/login',
+          (route) => false,
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error al cerrar sesión: $e'),
+            backgroundColor: const Color(0xFFE91E63),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +454,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   Widget _buildHeader() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -175,6 +509,65 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+          ),
+          PopupMenuButton<String>(
+            icon: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+              size: 24,
+            ),
+            offset: const Offset(0, 40),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            color: Colors.white,
+            elevation: 8,
+            onSelected: (value) {
+              switch (value) {
+                case 'profile':
+                  _showProfile();
+                  break;
+                case 'settings':
+                  _showSettings();
+                  break;
+                case 'logout':
+                  _showLogoutDialog();
+                  break;
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'profile',
+                child: Row(
+                  children: [
+                    Icon(Icons.person_outline, color: Color(0xFF3C2FCF), size: 20),
+                    SizedBox(width: 12),
+                    Text('Ver perfil', style: TextStyle(fontSize: 14)),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'settings',
+                child: Row(
+                  children: [
+                    Icon(Icons.settings_outlined, color: Color(0xFF3C2FCF), size: 20),
+                    SizedBox(width: 12),
+                    Text('Configuraciones', style: TextStyle(fontSize: 14)),
+                  ],
+                ),
+              ),
+              const PopupMenuDivider(),
+              const PopupMenuItem(
+                value: 'logout',
+                child: Row(
+                  children: [
+                    Icon(Icons.logout, color: Color(0xFFE91E63), size: 20),
+                    SizedBox(width: 12),
+                    Text('Cerrar sesión', style: TextStyle(fontSize: 14, color: Color(0xFFE91E63))),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
